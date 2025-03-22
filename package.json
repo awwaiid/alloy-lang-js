@@ -20,8 +20,12 @@
     "yauzl": "^2.10.0",
     "shelljs": "^0.8.4"
   },
-  "license": "ISC",
+  "license": "MIT",
   "name": "alloy-lang",
   "files": ["jdeploy-bundle"],
-  "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+  "scripts": {
+    "install-local": "jdeploy install",
+    "publish": "jdeploy publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
