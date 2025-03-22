@@ -1,28 +1,39 @@
 {
-  "bin": {"alloy-lang": "jdeploy-bundle/jdeploy.js"},
-  "author": "",
-  "description": "Alloy modeling language binary",
-  "main": "index.js",
+  "bin": {
+    "alloy-lang": "jdeploy-bundle/jdeploy.js"
+  },
+  "author": "Brock Wilcox (wrapper)",
+  "description": "Alloy modeling language binary and wrapper",
+  "main": "jdeploy-bundle/index.js",
   "preferGlobal": true,
   "repository": "",
-  "version": "6.2.0-1",
+  "version": "6.2.0-6",
   "jdeploy": {
     "jdk": false,
     "javaVersion": "17",
     "jar": "org.alloytools.alloy.dist.jar",
     "javafx": false,
-    "title": "Alloy Modeling Language Binary"
+    "title": "Alloy Modeling Language Jar",
+    "files": [
+      {
+        "dir": ".",
+        "includes": "index.js"
+      }
+    ]
   },
   "dependencies": {
     "command-exists-promise": "^2.0.2",
     "node-fetch": "2.6.7",
+    "shelljs": "^0.8.4",
     "tar": "^4.4.8",
     "yauzl": "^2.10.0",
-    "shelljs": "^0.8.4"
+    "tmp": "^0.2.3"
   },
   "license": "MIT",
   "name": "alloy-lang",
-  "files": ["jdeploy-bundle"],
+  "files": [
+    "jdeploy-bundle"
+  ],
   "scripts": {
     "install-local": "jdeploy install",
     "publish": "jdeploy publish",

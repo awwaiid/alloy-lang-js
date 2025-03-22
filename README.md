@@ -2,46 +2,39 @@
 
 This installs a binary named `alloy-lang` (to differentiate it from other npm packages with similar names). This package doesn't include any javascript wrapper, maybe I'll do that later. In the meantime, you can call the binary.
 
-Execute with the GUI:
-```sh
-alloy-lang
-```
+Execute with the GUI by running `alloy-lang` on the command line. Run `alloy-lang help` for more options.
 
 You can also run non-interactively, but you have to write to a temporary file (alloy won't read from stdin). You can also request `json` as the output format.
 
-```sh
-TEMPFILE=$(mktemp)
-echo 'sig Thing {} run { one Thing }' > $TEMPFILE
-alloy-lang exec -o - -t json $TEMPFILE
-rm $TEMPFILE
+This distribution comes with a javascript wrapper for non-interactive Alloy evaluation with JSON output:
+
+```javascript
+import alloy from 'alloy-lang';
+
+const result = alloy.eval('sig Thing {} run { one Thing }');
+console.dir(result, { depth: null });
 ```
 
-This will output something like:
+which outputs:
 
 ```json
 {
-  "duration": 26,
-  "incremental": true,
-  "instances": [
+  duration: 84,
+  incremental: true,
+  instances: [
     {
-      "messages": [],
-      "skolems": {},
-      "state": 0,
-      "values": {
-        "0": {},
-        "1": {},
-        "2": {},
-        "3": {},
-        "Thing$2": {}
-      }
+      messages: [],
+      skolems: {},
+      state: 0,
+      values: { '0': {}, '1': {}, '2': {}, '3': {}, 'Thing$2': {} }
     }
   ],
-  "localtime": "2025-03-21T21:22:13.357550566",
-  "loopstate": -1,
-  "sigs": {},
-  "timezone": "America/New_York",
-  "utctime": 1742606533357
+  localtime: '2025-03-22T14:36:25.496787586',
+  loopstate: -1,
+  sigs: {},
+  timezone: 'America/New_York',
+  utctime: 1742668585496
 }
 ```
 
-Which is to say, running this model produced one instance with three instantiated values -- the integers 0..3 and a single `Thing`.
+Which is to say that the Alloy program returns one instance with a few integers and a single `Thing` defined to satisfy the run. Fun!
