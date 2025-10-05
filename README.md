@@ -1,12 +1,12 @@
 [jdeploy](https://github.com/shannah/jdeploy) build of the [Alloy Language](https://github.com/AlloyTools/org.alloytools.alloy) jar for distribution via npm.
 
-This installs a binary named `alloy-lang` (to differentiate it from other npm packages with similar names). This package doesn't include any javascript wrapper, maybe I'll do that later. In the meantime, you can call the binary.
+This installs a binary named `alloy-lang` (to differentiate it from other npm packages with similar names).
 
 Execute with the GUI by running `alloy-lang` on the command line. Run `alloy-lang help` for more options.
 
-You can also run non-interactively, but you have to write to a temporary file (alloy won't read from stdin). You can also request `json` as the output format.
+## JavaScript Wrapper
 
-This distribution comes with a javascript wrapper for non-interactive Alloy evaluation with JSON output:
+This distribution includes a JavaScript wrapper for non-interactive Alloy evaluation with JSON output. The wrapper automatically resolves the binary path, so it works without requiring `alloy-lang` to be in your PATH:
 
 ```javascript
 import alloy from 'alloy-lang';
