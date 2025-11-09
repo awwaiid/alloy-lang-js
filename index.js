@@ -4,7 +4,7 @@ const { spawnSync } = require('child_process');
 const path = require('path');
 
 // Resolve the alloy-lang binary path relative to this module
-const alloyBinPath = path.join(__dirname, 'jdeploy.js');
+const alloyBinPath = path.join(__dirname, 'lib', 'jdeploy.js');
 
 function evalRaw(alloyProgram) {
   console.log('execAlloyRaw', alloyProgram);
