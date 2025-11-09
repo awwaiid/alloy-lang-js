@@ -4,8 +4,8 @@ const { spawnSync } = require('child_process');
 const path = require('path');
 
 // Resolve the alloy-lang binary path relative to this module
-// When published, both index.js and jdeploy.js are in jdeploy-bundle/
-const alloyBinPath = path.join(__dirname, 'jdeploy.js');
+// jdeploy.js is in the lib/ subdirectory
+const alloyBinPath = path.join(__dirname, 'lib', 'jdeploy.js');
 
 function evalRaw(alloyProgram) {
   console.log('execAlloyRaw', alloyProgram);
