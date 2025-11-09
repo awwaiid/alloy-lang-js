@@ -1,0 +1,13 @@
+{
+  "name": "alloy-filesystem-tree-example",
+  "version": "1.0.0",
+  "description": "Example using alloy-lang to model a hierarchical filesystem with subdirectories",
+  "type": "commonjs",
+  "main": "filesystem-tree.js",
+  "scripts": {
+    "start": "node filesystem-tree.js"
+  },
+  "dependencies": {
+    "alloy-lang": "file:../.."
+  }
+}
