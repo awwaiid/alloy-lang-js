@@ -1,0 +1,13 @@
+{
+  "name": "alloy-filesystem-example",
+  "version": "1.0.0",
+  "description": "Example using alloy-lang to model a filesystem",
+  "type": "commonjs",
+  "main": "filesystem.js",
+  "scripts": {
+    "start": "node filesystem.js"
+  },
+  "dependencies": {
+    "alloy-lang": "file:../.."
+  }
+}
