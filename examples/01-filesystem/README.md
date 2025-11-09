@@ -25,18 +25,30 @@ The `filesystem.js` file demonstrates:
    - Categorizing objects by type (directories, files, entries, names)
    - Displaying the full instance structure
 
+## Setup
+
+First, install dependencies:
+
+```bash
+npm install
+```
+
+This will install the `alloy-lang` package from npm.
+
 ## Running the Example
+
+From this directory:
+
+```bash
+npm start
+# or
+node filesystem.js
+```
 
 From the repository root:
 
 ```bash
 node examples/01-filesystem/filesystem.js
-```
-
-Or from this directory:
-
-```bash
-node filesystem.js
 ```
 
 ## Sample Output

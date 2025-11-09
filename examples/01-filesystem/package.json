@@ -8,6 +8,6 @@
     "start": "node filesystem.js"
   },
   "dependencies": {
-    "alloy-lang": "file:../.."
+    "alloy-lang": "^6.2.0-16"
   }
 }
