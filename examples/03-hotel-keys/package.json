@@ -1,0 +1,21 @@
+{
+  "name": "alloy-hotel-keys-example",
+  "version": "1.0.0",
+  "description": "Behavioral modeling example using alloy-lang to model a hotel key card system with state transitions",
+  "type": "commonjs",
+  "main": "hotel.js",
+  "scripts": {
+    "start": "node hotel.js"
+  },
+  "dependencies": {
+    "alloy-lang": "^6.2.0-16"
+  },
+  "keywords": [
+    "alloy",
+    "formal-methods",
+    "behavioral-modeling",
+    "state-transitions",
+    "hotel",
+    "access-control"
+  ]
+}
