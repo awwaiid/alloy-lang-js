@@ -84,11 +84,16 @@ This will:
 
 ## Output Visualizations
 
-The example generates markdown output with **Mermaid diagrams**:
+The example generates markdown output with **dynamically generated Mermaid diagrams**:
 
 ### Sequence Diagram
 
-Shows the interaction flow between guests, front desk, rooms, and key cards:
+The sequence diagram is **automatically generated** from the actual trace execution by:
+1. Comparing consecutive states to detect changes
+2. Inferring which action occurred (checkin, unlock, lock, checkout, stutter)
+3. Mapping actions to sequence diagram interactions
+
+This shows the actual interaction flow between guests, front desk, rooms, and key cards as executed by the model:
 
 ```mermaid
 sequenceDiagram
@@ -170,6 +175,31 @@ The generated `output.md` file contains the complete trace with detailed state i
 4. **checkout[g, k]** - Guest `g` checks out with key `k`
    - Guards: guest checked in, guest holds key, key valid
    - Effects: guest removed from CheckedIn, key removed from ValidKey
+
+## Visualization Features
+
+This example includes advanced visualization capabilities:
+
+### Action Inference
+
+The JavaScript runner automatically infers which action occurred at each step by:
+- **Comparing state changes**: Analyzes differences between consecutive states
+- **Pattern matching**: Detects specific state change patterns (e.g., new CheckedIn + new ValidKey = checkin)
+- **Action mapping**: Maps detected patterns to action types with parameters
+
+Detected actions include:
+- `init` - Initial state
+- `checkin[guest, room, key]` - Guest checks in
+- `unlock[guest, key, room]` - Guest unlocks room
+- `lock[room]` - Room locks
+- `checkout[guest, key]` - Guest checks out
+- `stutter` - No state change
+
+### Dynamic Diagram Generation
+
+Both diagrams are generated from the actual execution:
+- **Sequence diagram**: Shows message flow between participants based on inferred actions
+- **State diagram**: Displays state evolution with metrics at each step
 
 ## Learning Resources
 

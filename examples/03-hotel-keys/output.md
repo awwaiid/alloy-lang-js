@@ -13,39 +13,41 @@ The hotel key card system models the following:
 
 ## Sequence Diagram
 
+This diagram is dynamically generated from the actual trace execution:
+
 ```mermaid
 sequenceDiagram
-    participant Guest
-    participant FrontDesk
-    participant Room
-    participant KeyCard
+    participant G as Guest
+    participant F as FrontDesk
+    participant R as Room
+    participant K as KeyCard
 
-    Note over Guest,KeyCard: Hotel Check-in Process
+    Note over G,K: Initial State: All rooms locked
 
-    Guest->>FrontDesk: Request check-in for Room 101
-    FrontDesk->>KeyCard: Issue new key card
-    FrontDesk->>Room: Assign KeyCard to Room 101
-    FrontDesk-->>Guest: Provide KeyCard
+    Note over G,K: Check-in Process
+    G->>F: Request check-in for Room$0
+    F->>K: Issue Key$0
+    F->>R: Assign Key$0 to Room$0
+    F-->>G: Provide Key$0
 
-    Note over Guest,Room: Guest Uses Key
+    Note over G,R: Room Access
+    G->>R: Present Key$0 at Room$0
+    R->>K: Validate Key$0
+    K-->>R: Valid
+    R->>R: Unlock door
+    R-->>G: Door unlocked
+    Note over R: Room$0 door closes and locks
+    G->>R: Present Key$0 at Room$0
+    R->>K: Validate Key$0
+    K-->>R: Valid
+    R->>R: Unlock door
+    R-->>G: Door unlocked
+    Note over R: Room$0 door closes and locks
 
-    Guest->>Room: Present KeyCard at door
-    Room->>KeyCard: Validate key
-    alt Key is valid
-        KeyCard-->>Room: Valid
-        Room->>Room: Unlock door
-        Room-->>Guest: Door unlocked
-    else Key is invalid
-        KeyCard-->>Room: Invalid
-        Room-->>Guest: Access denied
-    end
-
-    Note over Guest,FrontDesk: Check-out Process
-
-    Guest->>FrontDesk: Check out
-    FrontDesk->>KeyCard: Invalidate key
-    FrontDesk->>Room: Lock room
-    Room-->>FrontDesk: Room secured
+    Note over G,F: Check-out Process
+    G->>F: Check out
+    F->>K: Invalidate Key$0
+    K-->>F: Key$0 deactivated
 ```
 
 ## State Transition Diagram
@@ -126,17 +128,19 @@ The model verifies:
 
 ### Step 0
 
+**Action**: `init` - System initialization
+
 **Rooms:**
 - Room$0: 🔒 LOCKED
 - Room$1: 🔒 LOCKED
 
 **Guests:**
 - Guest$0: ✗ Not Checked In
-
-**Initial State**: All rooms are locked, no guests are checked in, no valid keys exist.
 
 ### Step 1
 
+**Action**: `checkin` - Guest$0 checks in to Room$0, receives Key$0
+
 **Rooms:**
 - Room$0: 🔒 LOCKED
 - Room$1: 🔒 LOCKED
@@ -145,11 +149,11 @@ The model verifies:
 - Guest$0: ✓ Checked In
   - Has Key$0 (VALID)
     - Unlocks Room$0
-
-**Action**: Guest$0 checks into Room$0 and receives Key$0.
 
 ### Step 2
 
+**Action**: `unlock` - Guest$0 unlocks Room$0 with Key$0
+
 **Rooms:**
 - Room$0: 🔓 UNLOCKED
 - Room$1: 🔒 LOCKED
@@ -158,11 +162,11 @@ The model verifies:
 - Guest$0: ✓ Checked In
   - Has Key$0 (VALID)
     - Unlocks Room$0
-
-**Action**: Guest$0 uses Key$0 to unlock Room$0.
 
 ### Step 3
 
+**Action**: `lock` - Room$0 locked
+
 **Rooms:**
 - Room$0: 🔒 LOCKED
 - Room$1: 🔒 LOCKED
@@ -172,9 +176,9 @@ The model verifies:
   - Has Key$0 (VALID)
     - Unlocks Room$0
 
-**Action**: Room$0 locks again (door closes).
-
 ### Step 4
+
+**Action**: `unlock` - Guest$0 unlocks Room$0 with Key$0
 
 **Rooms:**
 - Room$0: 🔓 UNLOCKED
@@ -185,9 +189,9 @@ The model verifies:
   - Has Key$0 (VALID)
     - Unlocks Room$0
 
-**Action**: Guest$0 unlocks Room$0 again with their valid key.
-
 ### Step 5
+
+**Action**: `lock` - Room$0 locked
 
 **Rooms:**
 - Room$0: 🔒 LOCKED
@@ -198,9 +202,9 @@ The model verifies:
   - Has Key$0 (VALID)
     - Unlocks Room$0
 
-**Action**: Room$0 locks again (door closes).
-
 ### Step 6
+
+**Action**: `checkout` - Guest$0 checks out, Key$0 invalidated
 
 **Rooms:**
 - Room$0: 🔒 LOCKED
@@ -209,11 +213,11 @@ The model verifies:
 **Guests:**
 - Guest$0: ✗ Not Checked In
   - Has Key$0 (INVALID)
-
-**Action**: Guest$0 checks out. Key$0 becomes invalid and can no longer unlock rooms.
 
 ### Step 7
 
+**Action**: `stutter` - No state change
+
 **Rooms:**
 - Room$0: 🔒 LOCKED
 - Room$1: 🔒 LOCKED
@@ -221,8 +225,6 @@ The model verifies:
 **Guests:**
 - Guest$0: ✗ Not Checked In
   - Has Key$0 (INVALID)
-
-**Action**: System stutters (no state change). Guest$0 is checked out and their key remains invalid.
 
 ## Summary
 
